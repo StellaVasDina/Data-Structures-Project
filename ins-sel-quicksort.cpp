@@ -1,5 +1,9 @@
 #include <iostream>
 
+void insertion_sort(int list[], int n);
+void selection_sort(int list[], int n);
+void quick_sort(int list[], int first, int last);
+
 int main()
 {
     std::cout << "this language's pretty good but it can suck my ass and balls";
@@ -23,6 +27,7 @@ void insertion_sort(int list[], int n)
         }
     }
 }
+
 // selection sort stuff
 void selection_sort(int list[], int n)
 {
@@ -46,6 +51,7 @@ void selection_sort(int list[], int n)
         }
     }
 }
+
 // quick sort stuff
 void quick_sort(int list[], int first, int last)
 {
