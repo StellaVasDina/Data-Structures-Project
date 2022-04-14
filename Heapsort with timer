@@ -1,0 +1,74 @@
+#include <iostream>
+//#include <bits/stdc++.h> 
+using namespace std;
+#include <ctime>
+#include<cstdlib>
+//added now for timing
+#include <algorithm>
+#include <chrono>
+#include<vector>
+using namespace std::chrono;
+//Function for assortment
+int heapsort(int heap[], int no) {
+    int j, temp, root, i, c;
+    for (i = 1; i < no; i++) {
+
+        c = i;
+        do {
+            root = (c - 1) / 2;
+            if (heap[root] < heap[c]) {
+                temp = heap[root];
+                heap[root] = heap[c];
+                heap[c] = temp;
+            }
+            c = root;
+        } while (c != 0);
+    }
+    cout << "Heap array:" << endl;
+    for (j = no - 1; j >= 0; j--) {
+        temp = heap[0];
+        heap[0] = heap[j];
+        heap[j] = temp;
+        root = 0;
+        do {
+            c = 2 * root + 1;
+            if ((heap[c] < heap[c + 1]) && c < j - 1) {
+                c++;
+            }
+            if (heap[root] < heap[c] && c < j) {
+                temp = heap[root];
+                heap[root] = heap[c];
+                heap[c] = temp;
+            }
+            root = c;
+        } while (c < j);
+    }
+    return 0;
+}
+int main() {
+    srand(time(NULL));
+    int heap[1000], no = 100, i, j, c, x = 0, y, root, temp;
+    for (y = 1; y <= 10; y++) {
+        cout << "Scenario:" << y << endl;
+        for (i = 0; i < no; i++) {
+            x = (rand() % 1000000) + 1;
+            heap[i] = x;
+        }
+        //Start timer
+        auto start = high_resolution_clock::now();
+        heapsort(heap, no);
+        auto stop = high_resolution_clock::now();
+        //End timer
+        cout << "The sorted array is:" << endl;
+        for (i = 0; i < no; i++) {
+            cout << heap[i] << endl;
+        }
+        no = no + 100;
+        auto duration = duration_cast<microseconds>(stop - start);
+
+        cout << "Time taken by function: "
+            << duration.count() << " microseconds" << endl;
+    }
+    //cout << "Complexity:" << '\n' << "Best case=Avg case=Worst case=0(n logn)" << endl;
+    return 0;
+}
